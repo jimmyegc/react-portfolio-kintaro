@@ -1,11 +1,38 @@
+import { useState } from 'react'
+
 import { IoLocationOutline } from 'react-icons/io5'
 import { personalInfo } from '../constants'
 import { FaWhatsapp } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
-import { useState } from 'react'
+
+const getIconColor = (name: string): string => {
+  switch(name) {
+    case 'Github':
+      return '#333';
+    case 'LinkedIn':
+      return '#0077b5'
+    case 'X':
+      return '#000';
+    default:
+      return '#6b7280';
+  }
+}
+
+const getWhatsAppLink = (phone: string): string => {
+  const cleanNumber = phone
+    .replace(/\s+/g, '')
+		.replace(/[^\d+]/g, '');
+  
+    const message = encodeURIComponent(
+		'¡Hola! Me interesa contactarte para un proyecto'
+	);
+
+	return `https://wa.me/${cleanNumber}?text=${message}`;
+}
+
 
 export const Header = () => {
-
+  
   const { 
     photoSrc, 
     name, 
@@ -83,7 +110,9 @@ export const Header = () => {
                 rel='noopener noreferrer' 
                 aria-label={link.name} 
                 title={link.name}
-                style={{}}
+                style={{ 
+                  color: getIconColor(link.name)
+                }}
               >
                 {link.icon}
               </a>
@@ -92,7 +121,7 @@ export const Header = () => {
 
           <div className='flex gap-2 mt-4'>
             <a 
-              href="" 
+              href={getWhatsAppLink(phoneNumber)}
               className='bg-black text-white rounded-md flex gap-1.5 items-center justify-center px-5 font-semibold'
               target="_blank"
               aria-label='Contactar por Whatsapp'
