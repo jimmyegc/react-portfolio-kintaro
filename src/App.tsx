@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Header, Navigation } from "./components"
+import { Header, Navigation, GridProjects, ModalProject, GridExperience, GridSkills } from "./components"
 import type { Project } from "./types";
 
 function App() {
@@ -15,6 +15,16 @@ function App() {
           tabActiveIndex={tabActiveIndex}
           setTabActiveIndex={setActiveIndex}
         />
+        {tabActiveIndex === 1 && (<GridProjects setSelectedProject={setSelectedProject} />)}
+        {tabActiveIndex === 2 && (<GridExperience />)}
+        {tabActiveIndex === 3 && (<GridSkills />)}                        
+        {selectedProject && (
+          <ModalProject 
+            selectedProject={selectedProject} 
+            setSelectedProject={setSelectedProject} 
+          />
+        )}
+        
       </main>
     </div>    
   )
